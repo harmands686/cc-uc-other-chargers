@@ -1,8 +1,17 @@
-package com.vf.dao;
+package com.vf.rest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vf.exception.MasterOrderNotFoundException;
@@ -10,30 +19,39 @@ import com.vf.model.MasterOrder;
 import com.vf.repository.MasterOrderRepository;
 
 @RestController
-public class MasterOrderDAO {
+public class MasterOrderRestController {
 
 @Autowired
     MasterOrderRepository OrderRepository;
 
 // Get All Orders
+	@GetMapping("/masterorders")
     public List<MasterOrder> getAllOrders() {
         return OrderRepository.findAll();
     }
 
+	@GetMapping("/hello1")
+    public String sayhello() {
+        return "Welcome1";
+    }
+	
 // Create a new Order
-    public MasterOrder createOrderOrder(MasterOrder order) {
+    @PostMapping("/masterorders")
+    public MasterOrder createOrder(@Valid @RequestBody MasterOrder order) {
         return OrderRepository.save(order);
     }
 
 // Get a Single Order
-    public MasterOrder getOrderById(Long id) throws MasterOrderNotFoundException {
+    @GetMapping("/masterorders/{id}")
+    public MasterOrder getOrderById(@PathVariable(value = "id") Long id) throws MasterOrderNotFoundException {
         return OrderRepository.findById(id)
                 .orElseThrow(() -> new MasterOrderNotFoundException(id));
     }
 
 // Update a Order
-    public MasterOrder updateOrder(Long id,
-                            MasterOrder orderDetails) throws MasterOrderNotFoundException {
+    @PutMapping("/masterorders/{id}")
+    public MasterOrder updateOrder(@PathVariable(value = "id") Long id,
+                           @Valid @RequestBody MasterOrder orderDetails) throws MasterOrderNotFoundException {
 
 MasterOrder order = OrderRepository.findById(id)
                 .orElseThrow(() -> new MasterOrderNotFoundException(id));
@@ -49,12 +67,13 @@ return updatedOrder;
     }
 
 // Delete a Order
-    public boolean deleteOrder(Long id) throws MasterOrderNotFoundException {
+    @DeleteMapping("/masterorders/{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable(value = "id") Long id) throws MasterOrderNotFoundException {
         MasterOrder order = OrderRepository.findById(id)
                 .orElseThrow(() -> new MasterOrderNotFoundException(id));
 
 OrderRepository.delete(order);
 
-return true;
+return ResponseEntity.ok().build();
     }
 }
