@@ -32,6 +32,16 @@
   			<groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
 		</dependency> 
+		<!-- <dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency> -->
+		<!-- <dependency>
+   			 <groupId>com.ibm.db2</groupId>
+    		 <artifactId>jcc</artifactId>
+    		 <version>11.1.4.4</version>
+		</dependency> -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

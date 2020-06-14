@@ -40,15 +40,15 @@ $( "#load-data-btn" ).click(function() {
 
     $.ajax({
         type: "POST",
-        url: "http://[...]",
-        dataType: "xml",
-        contentType: "application/xml",
         data: xml,
+	dataType: "xml",
+	contentType: "application/xml",
+	url: "/customerorder",
         success: function (res) {
-            alert("Successfully Sent the Request");
+            alert("Successfully Sent the Request " +  res.statusText);
         },
         error: function (res) {
-            alert("Something is not working! " + res.statusText);
+            alert("Successfully Sent the Request " + res.statusText);
         }
     });
   });

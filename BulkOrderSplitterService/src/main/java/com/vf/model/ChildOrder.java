@@ -1,5 +1,7 @@
 package com.vf.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -19,23 +23,66 @@ public class ChildOrder {
 	private Long master_id;
 
 	@ManyToOne
-	 @JoinColumn(name = "master_id")
+    @JoinColumn(name = "master_id")
 	private MasterOrder masterOrder;
 	 
 	@NotBlank
 	private String mobileNumber;
-	@NotBlank
-	private String product;
-	@NotBlank
-	private String address;
+	
 	@NotBlank
 	private String orderStatus;
 
+	@Temporal(value= TemporalType.TIMESTAMP)
+    private Date creationDate;
 	
+	@Temporal(value= TemporalType.TIMESTAMP)
+    private Date lastUpdateDate;
+	
+	@Column(name="xml", length=5000)
+	private String payload;
+	
+	public String getXml() {
+		return payload;
+	}
+
+
+
+	public void setXml(String xml) {
+		this.payload = xml;
+	}
+
+
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+
+
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
+
+
 	public ChildOrder() {
 		super();
 	}
 
+	
+	
 	public Long getMaster_id() {
 		return master_id;
 	}
@@ -69,21 +116,6 @@ public class ChildOrder {
 		this.mobileNumber = mobileNumber;
 	}
 
-	public String getProduct() {
-		return product;
-	}
-
-	public void setProduct(String product) {
-		this.product = product;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	public String getOrderStatus() {
 		return orderStatus;

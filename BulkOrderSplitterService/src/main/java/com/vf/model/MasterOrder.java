@@ -1,14 +1,17 @@
 package com.vf.model;
 
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "masterorder")
+@Table(name = "masterorder" , uniqueConstraints={@UniqueConstraint(columnNames={"orderRefNumber"})})
 public class MasterOrder {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	@NotBlank
 	private String orderRefNumber;
 	@NotBlank
@@ -18,18 +21,30 @@ public class MasterOrder {
 	@NotBlank
 	private String orderStatus;
 
-	public MasterOrder() {
-		super();
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
-	public MasterOrder(Long id, String orderRefNumber, String customerName, String customerAccountId,
-			String orderStatus) {
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
+	@Temporal(value= TemporalType.TIMESTAMP)
+    private Date creationDate;
+	
+	@Temporal(value= TemporalType.TIMESTAMP)
+    private Date lastUpdateDate;
+	
+	public MasterOrder() {
 		super();
-		this.id = id;
-		this.orderRefNumber = orderRefNumber;
-		this.customerName = customerName;
-		this.customerAccountId = customerAccountId;
-		this.orderStatus = orderStatus;
 	}
 
 	public Long getId() {
