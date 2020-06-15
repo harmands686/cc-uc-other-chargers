@@ -36,23 +36,20 @@ public class ChildOrder {
     private Date creationDate;
 	
 	@Temporal(value= TemporalType.TIMESTAMP)
+    private Date omsOrderCreationDate;
+	
+	@Temporal(value= TemporalType.TIMESTAMP)
     private Date lastUpdateDate;
 	
 	@Column(name="xml", length=5000)
 	private String payload;
 	
-	public String getXml() {
-		return payload;
+	public ChildOrder() {
+		super();
 	}
+	
 
-
-
-	public void setXml(String xml) {
-		this.payload = xml;
-	}
-
-
-
+	
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -65,24 +62,36 @@ public class ChildOrder {
 
 
 
-	public Date getLastUpdateDate() {
-		return lastUpdateDate;
+	public Date getOmsOrderCreationDate() {
+		return omsOrderCreationDate;
 	}
 
 
+
+	public void setOmsOrderCreationDate(Date omsOrderCreationDate) {
+		this.omsOrderCreationDate = omsOrderCreationDate;
+	}
+
+
+
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
 
 	public void setLastUpdateDate(Date lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
 	}
 
-
-
-	public ChildOrder() {
-		super();
+	public String getPayload() {
+		return payload;
 	}
 
-	
-	
+
+	public void setPayload(String payload) {
+		this.payload = payload;
+	}
+
+
 	public Long getMaster_id() {
 		return master_id;
 	}

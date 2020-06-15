@@ -39,35 +39,15 @@ public class CustomerOrderRestController {
 	public String processCustomerOrder(HttpServletRequest request) {
 
 		MasterOrder masterOrder = null;
+		ChildOrder childOrder = null;
 		try {
-			String xml = XMLUtil.extractPostRequestBody(request);
-			masterOrder = new MasterOrder();
-			masterOrder.setOrderRefNumber(XMLUtil.xpathProcessor_V(Constants.MASTER_ORDER_REF_XPATH, xml));
-			masterOrder.setCustomerAccountId(XMLUtil.xpathProcessor_V(Constants.MASTER_CUST_ACCT_ID_XPATH, xml));
-			masterOrder.setCustomerName(XMLUtil.xpathProcessor_V(Constants.MASTER_CUST_NAME_XPATH, xml));
-			masterOrder.setCreationDate(new Date());
-			masterOrder.setLastUpdateDate(new Date());
-			masterOrder.setOrderStatus(Constants.OPEN_STATUS);
+			String inputXml = XMLUtil.extractPostRequestBody(request);
+			masterOrder = populateMasterOrder(inputXml);
 			masterOrderRepo.save(masterOrder);
-
-			NodeList childOrders = XMLUtil.xPathProcessor(Constants.CHILD_LIST_XPATH, xml);
-			System.out.println(">>>>>Child order count="+childOrders.getLength());
-			for (int i = 0; i < childOrders.getLength(); i++) {
-				Node child = childOrders.item(i);
-				Element element = (Element) child;
-				String subscriberName = element.getElementsByTagName(Constants.CHILD_SUBSCRIBER_TAG_NAME).item(0).getTextContent();
-				String mobileNumber = element.getElementsByTagName(Constants.CHILD_MOBILE_TAG_NAME).item(0).getTextContent();
-				System.out.println(">>>>>>>>Mobile>>"+mobileNumber);
-				String calculatedChildXML = XMLUtil.childOrderXML(Constants.CHILD_EXCLUDE_XPATH,
-						Constants.CHILD_XPATH.replace(Constants.REPLACE_STRING, mobileNumber), xml);
-				ChildOrder childOrder = new ChildOrder();
-				childOrder.setMasterOrder(masterOrder);
-				childOrder.setMaster_id(masterOrder.getId());
-				childOrder.setMobileNumber(mobileNumber);
-				childOrder.setCreationDate(new Date());
-				childOrder.setLastUpdateDate(new Date());
-				childOrder.setXml(calculatedChildXML);
-				childOrder.setOrderStatus(Constants.OPEN_STATUS);
+			NodeList childOrderList = XMLUtil.xPathProcessor(Constants.CHILD_LIST_XPATH, inputXml);
+			System.out.println("Child orders count>>>>>>" + childOrderList.getLength());
+			for (int i = 0; i < childOrderList.getLength(); i++) {
+				childOrder = populateChildOrder(masterOrder, childOrderList.item(i), inputXml);
 				childOrderRepo.save(childOrder);
 			}
 		} catch (TransformerException e) {
@@ -87,6 +67,37 @@ public class CustomerOrderRestController {
 			e.printStackTrace();
 		}
 		return masterOrder.getId().toString();
+	}
+
+	public MasterOrder populateMasterOrder(String xml) throws XPathExpressionException {
+
+		MasterOrder masterOrder = new MasterOrder();
+		masterOrder.setOrderRefNumber(XMLUtil.xpathProcessor_V(Constants.MASTER_ORDER_REF_XPATH, xml));
+		masterOrder.setCustomerAccountId(XMLUtil.xpathProcessor_V(Constants.MASTER_CUST_ACCT_ID_XPATH, xml));
+		masterOrder.setCustomerName(XMLUtil.xpathProcessor_V(Constants.MASTER_CUST_NAME_XPATH, xml));
+		masterOrder.setCreationDate(new Date());
+		masterOrder.setLastUpdateDate(new Date());
+		masterOrder.setOrderStatus(Constants.OPEN_STATUS);
+		return masterOrder;
+	}
+
+	public ChildOrder populateChildOrder(MasterOrder masterOrder, Node child, String xml)
+			throws XPathExpressionException, TransformerException, ParserConfigurationException, SAXException,
+			IOException {
+
+		ChildOrder childOrder = new ChildOrder();
+		Element element = (Element) child;
+		String mobileNumber = element.getElementsByTagName(Constants.CHILD_MOBILE_TAG_NAME).item(0).getTextContent();
+		System.out.println("Mobile>>>>>" + mobileNumber);
+		String calculatedChildXML = XMLUtil.childOrderXML(Constants.CHILD_EXCLUDE_XPATH,
+				Constants.CHILD_XPATH.replace(Constants.REPLACE_STRING, mobileNumber), xml);
+		childOrder.setMasterOrder(masterOrder);
+		childOrder.setMaster_id(masterOrder.getId());
+		childOrder.setMobileNumber(mobileNumber);
+		childOrder.setCreationDate(new Date());
+		childOrder.setPayload(calculatedChildXML);
+		childOrder.setOrderStatus(Constants.OPEN_STATUS);
+		return childOrder;
 	}
 
 	/*

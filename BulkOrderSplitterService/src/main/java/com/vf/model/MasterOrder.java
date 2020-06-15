@@ -21,6 +21,12 @@ public class MasterOrder {
 	@NotBlank
 	private String orderStatus;
 
+	@Temporal(value= TemporalType.TIMESTAMP)
+    private Date creationDate;
+	
+	@Temporal(value= TemporalType.TIMESTAMP)
+    private Date lastUpdateDate;
+	
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -37,11 +43,6 @@ public class MasterOrder {
 		this.lastUpdateDate = lastUpdateDate;
 	}
 
-	@Temporal(value= TemporalType.TIMESTAMP)
-    private Date creationDate;
-	
-	@Temporal(value= TemporalType.TIMESTAMP)
-    private Date lastUpdateDate;
 	
 	public MasterOrder() {
 		super();
