@@ -2,7 +2,6 @@ package com.vf.util;
 
 public class Constants {
 
-	
 	public static String OPEN_STATUS = "OPEN";
 	public static String INPROGRESS_STATUS = "INPROGRESS";
 	public static String COMPLETED_STATUS = "COMPLETED";
@@ -13,7 +12,7 @@ public class Constants {
 	public static String CHILD_XPATH = "/CustomerOrder/SubscriberList/Subscriber[MobileNumber/text()='REPLACE']";
 	public static String CHILD_LIST_XPATH = "//Subscriber";
 	public static String REPLACE_STRING = "REPLACE";
-	
+
 	public static String MASTER_ORDER_REF_XPATH = "/CustomerOrder/OrderRefNumber";
 	public static String MASTER_CUST_NAME_XPATH = "/CustomerOrder/CustomerName";
 	public static String MASTER_CUST_ACCT_ID_XPATH = "/CustomerOrder/CustomerAccountId";

@@ -6,3 +6,4 @@
 /target/test-classes
 /target/generated-test-sources
 /target/*.original
+/target/

@@ -44,12 +44,31 @@ public class ChildOrder {
 	@Column(name="xml", length=5000)
 	private String payload;
 	
+	private String omsOrderId;
+	
+	
+	
 	public ChildOrder() {
 		super();
 	}
 	
 
 	
+	
+	public String getOmsOrderId() {
+		return omsOrderId;
+	}
+
+
+
+
+	public void setOmsOrderId(String omsOrderId) {
+		this.omsOrderId = omsOrderId;
+	}
+
+
+
+
 	public Date getCreationDate() {
 		return creationDate;
 	}
