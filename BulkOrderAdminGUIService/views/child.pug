@@ -1,0 +1,29 @@
+html
+	head
+		title= 'Child Orders'
+		style
+			include style.css
+	body
+		h1= 'Admin GUI - Order Tracking'
+	table(class="gridtable")
+		tr
+			th Id
+			th MasterId
+			th MobileNumber
+			th OrderStatus
+			th OMSOrderId
+			th OMSOrderCreationDate
+			th CreationDate
+			th LastUpdateDate
+			th Payload
+		for child in childorders
+			tr
+				td= child.id
+				td= child.master_id
+				td= child.mobileNumber
+				td= child.orderStatus
+				td= child.omsOrderId
+				td= child.omsOrderCreationDate
+				td= child.creationDate
+				td= child.lastUpdateDate
+				td= child.payload

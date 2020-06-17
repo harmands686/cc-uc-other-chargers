@@ -1,0 +1,25 @@
+html
+	head
+		title= 'Master Orders'
+		style
+			include style.css
+	body
+		h1= 'Admin GUI - Master Order Tracking'
+	table(class="gridtable")
+		tr
+			th Id
+			th OrderRefNumber
+			th CustomerName
+			th CustomerAccountId
+			th OrderStatus
+			th CreationDate
+			th LastUpdateDate
+		for master in masterorders
+			tr
+				td= master.id
+				td= master.orderRefNumber
+				td= master.customerName
+				td= master.customerAccountId
+				td= master.orderStatus
+				td= master.creationDate
+				td= master.lastUpdateDate
