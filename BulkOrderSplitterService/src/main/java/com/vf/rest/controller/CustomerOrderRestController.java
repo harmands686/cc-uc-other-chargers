@@ -97,6 +97,7 @@ public class CustomerOrderRestController {
 		childOrder.setCreationDate(new Date());
 		childOrder.setPayload(calculatedChildXML);
 		childOrder.setOrderStatus(Constants.OPEN_STATUS);
+		childOrder.setOrderRefNumber(masterOrder.getOrderRefNumber());
 		return childOrder;
 	}
 

@@ -4,11 +4,12 @@ html
 		style
 			include style.css
 	body
-		h1= 'Admin GUI - Order Tracking'
+		h1= 'Admin GUI - Child Order Tracking'
 	table(class="gridtable")
 		tr
 			th Id
 			th MasterId
+			th OrderRefNumber
 			th MobileNumber
 			th OrderStatus
 			th OMSOrderId
@@ -19,7 +20,9 @@ html
 		for child in childorders
 			tr
 				td= child.id
-				td= child.master_id
+				td
+					a(href='/masterorder?masterid=' + child.master_id)= child.master_id
+				td= child.orderRefNumber
 				td= child.mobileNumber
 				td= child.orderStatus
 				td= child.omsOrderId

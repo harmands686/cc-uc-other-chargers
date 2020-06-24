@@ -25,7 +25,10 @@ public class ChildOrder {
 	@ManyToOne
     @JoinColumn(name = "master_id")
 	private MasterOrder masterOrder;
-	 
+	
+	@NotBlank
+	private String orderRefNumber;
+
 	@NotBlank
 	private String mobileNumber;
 	
@@ -55,6 +58,20 @@ public class ChildOrder {
 
 	
 	
+	public String getOrderRefNumber() {
+		return orderRefNumber;
+	}
+
+
+
+
+	public void setOrderRefNumber(String orderRefNumber) {
+		this.orderRefNumber = orderRefNumber;
+	}
+
+
+
+
 	public String getOmsOrderId() {
 		return omsOrderId;
 	}

@@ -13,5 +13,8 @@ public interface ChildOrderRepository extends JpaRepository<ChildOrder, Long> {
 
 	@Query("SELECT a FROM ChildOrder a WHERE a.orderStatus = ?1")
 	Collection<ChildOrder> findChildOrderByOrderStatus(String orderStatus);
+	
+	@Query("SELECT a FROM ChildOrder a WHERE a.orderRefNumber = ?1")
+	Collection<ChildOrder> findChildOrderByOrderRefNumber(String orderRefNumber);
 
 }

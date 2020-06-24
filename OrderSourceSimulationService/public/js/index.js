@@ -1,8 +1,8 @@
 $( "#load-data-btn" ).click(function() {
     var subs = $("#numberofSubscribers").val();
     subsInt = parseInt(subs);
-    if (subsInt == 0 || subsInt > 30){
-        alert("Subscriber Number should be greater than 0 and less than 31")
+    if (subsInt < 2 || subsInt > 30){
+        alert("Subscriber Number should be greater than 1 and less than 31")
         return
     }
     window.location.href = "/load/"+subs;

@@ -4,7 +4,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 3000;
-const URL_BULK_SERVICE_HOST = process.env.URL_BULK_SERVICE || "172.18.6.65";
+const URL_BULK_SERVICE_HOST = process.env.URL_BULK_SERVICE || "localhost";
 const URL_BULK_SERVICE_PORT = process.env.URL_BULK_SERVICE_PORT || 8080;
 
 
@@ -15,7 +15,7 @@ app.use(xmlparser());
 app.set('view engine', 'hbs');
 
 app.get('/', function (req, res) {
-    res.redirect('/load/1');
+    res.redirect('/load/5');
 })
 
 app.get('/load/:subscribers/', function (req, res) {

@@ -14,12 +14,12 @@ html
 			th OrderStatus
 			th CreationDate
 			th LastUpdateDate
-		for master in masterorders
+		
 			tr
-				td= master.id
-				td= master.orderRefNumber
-				td= master.customerName
-				td= master.customerAccountId
-				td= master.orderStatus
-				td= master.creationDate
-				td= master.lastUpdateDate
+				td= masterorder.id
+				td= masterorder.orderRefNumber
+				td= masterorder.customerName
+				td= masterorder.customerAccountId
+				td= masterorder.orderStatus
+				td= masterorder.creationDate
+				td= masterorder.lastUpdateDate
