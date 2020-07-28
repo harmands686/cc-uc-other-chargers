@@ -4,3 +4,6 @@ Bulk order : It is reffered to orders where a single customer order xml contains
 Input - XML/RESTWS
 Output - Save order to database after splitting
 
+
+
+delivery pipeline test1
